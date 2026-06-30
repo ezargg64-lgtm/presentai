@@ -3,7 +3,9 @@
  * Handles all communication with the backend server.
  */
 
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? 'http://localhost:3000/api'
+  : '/api';
 
 /**
  * Generate a presentation from a given topic.
@@ -65,8 +67,8 @@ async function generatePresentation(topic, style = 'general') {
 }
 
 /**
- * Check if the backend server is healthy and reachable.
- * @returns {Promise<Object>} Health status object with status and timestamp
+ * Check if the backend server is reachable.
+ * @returns {Promise<Object>} Health status
  */
 async function checkHealth() {
   try {
