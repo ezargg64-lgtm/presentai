@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: presentai-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    rootDir: backend
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false # User must set this in the Render dashboard manually
+      - key: CORS_ORIGIN
+        value: "*"
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
