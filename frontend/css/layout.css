@@ -1,0 +1,147 @@
+/* ── App Container ────────────────────────────────────────────────────── */
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ── Header ───────────────────────────────────────────────────────────── */
+.app-header {
+  background: var(--bg-body);
+  padding: 40px 20px 20px;
+  text-align: center;
+}
+
+.app-header .logo {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.app-header .tagline {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  font-weight: 400;
+}
+
+/* ── Input Section ────────────────────────────────────────────────────── */
+.input-section {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px 20px 40px;
+}
+
+/* ── Presentation Wrapper ─────────────────────────────────────────────── */
+.presentation-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+}
+
+/* ── Presentation Container (16:9) ────────────────────────────────────── */
+.presentation-container {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--bg-slide);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 20px var(--shadow);
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Navigation ───────────────────────────────────────────────────────── */
+.nav-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+/* ── Sections Toggle ──────────────────────────────────────────────────── */
+.hidden {
+  display: none !important;
+}
+
+/* ── Skeleton Container ───────────────────────────────────────────────── */
+.skeleton-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+}
+
+/* ── Empty State ──────────────────────────────────────────────────────── */
+.empty-state {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+/* ── Error Container ──────────────────────────────────────────────────── */
+.error-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* ── Footer ───────────────────────────────────────────────────────────── */
+.app-footer {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-family: var(--font-sans);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Mobile (< 640px) ─────────────────────────────────────────────────── */
+@media (max-width: 639px) {
+  .presentation-container {
+    aspect-ratio: auto;
+    min-height: 320px;
+    padding: 24px;
+  }
+
+  .nav-container {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .nav-container .btn-nav {
+    font-size: 13px;
+    padding: 8px 14px;
+  }
+
+  .app-header {
+    padding: 28px 16px 16px;
+  }
+
+  .input-section {
+    padding: 16px 16px 28px;
+  }
+}
+
+/* ── Tablet (640px – 1024px) ──────────────────────────────────────────── */
+@media (min-width: 640px) and (max-width: 1024px) {
+  .presentation-wrapper {
+    max-width: 90%;
+  }
+}
+
+/* ── Desktop (> 1024px) ───────────────────────────────────────────────── */
+@media (min-width: 1025px) {
+  .presentation-wrapper {
+    max-width: 800px;
+  }
+}
