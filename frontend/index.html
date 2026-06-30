@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PresentAI - Buat struktur presentasi profesional dalam hitungan detik menggunakan AI.">
+  <title>PresentAI - AI Presentation Assistant</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         A. HEADER
+         ═══════════════════════════════════════════════════════════════════ -->
+    <header class="app-header">
+      <h1 class="logo">PresentAI</h1>
+      <p class="tagline">Buat struktur presentasi dalam detik</p>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         B. INPUT SECTION
+         ═══════════════════════════════════════════════════════════════════ -->
+    <section class="input-section">
+      <div class="input-group">
+        <label for="topicInput" class="input-label">Topik Presentasi Anda</label>
+        <textarea
+          id="topicInput"
+          class="input-textarea"
+          placeholder="Contoh: Dampak AI dalam Pendidikan Indonesia..."
+          maxlength="200"
+          rows="4"
+        ></textarea>
+        <div id="charCounter" class="char-counter">0 / 200</div>
+      </div>
+
+      <div class="input-group" style="margin-top: 16px;">
+        <label for="styleSelect" class="input-label">Gaya Presentasi</label>
+        <select id="styleSelect" class="input-select">
+          <option value="general">Umum / Profesional</option>
+          <option value="academic">Akademik / Ilmiah</option>
+          <option value="business">Bisnis / Konsultan</option>
+          <option value="kids">Edukasi Anak / Sederhana</option>
+        </select>
+      </div>
+
+      <div class="input-actions">
+        <button id="generateBtn" class="btn-primary">
+          Buat Presentasi
+        </button>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         C. LOADING SECTION (Skeleton)
+         ═══════════════════════════════════════════════════════════════════ -->
+    <section id="skeletonContainer" class="skeleton-container hidden">
+      <div class="skeleton-box"></div>
+      <div class="skeleton-box"></div>
+      <div class="skeleton-box"></div>
+      <div class="skeleton-box"></div>
+      <div class="skeleton-box"></div>
+      <p class="skeleton-text">AI sedang menyusun materi presentasi...</p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         G. EMPTY STATE
+         ═══════════════════════════════════════════════════════════════════ -->
+    <section id="emptyState" class="empty-state">
+      <div class="empty-state-icon">
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="12" y="8" width="56" height="40" rx="4" stroke="#C4A484" stroke-width="1.5" fill="none"/>
+          <line x1="22" y1="20" x2="46" y2="20" stroke="#E6E4E0" stroke-width="2" stroke-linecap="round"/>
+          <line x1="22" y1="28" x2="58" y2="28" stroke="#E6E4E0" stroke-width="2" stroke-linecap="round"/>
+          <line x1="22" y1="36" x2="52" y2="36" stroke="#E6E4E0" stroke-width="2" stroke-linecap="round"/>
+          <rect x="20" y="56" width="40" height="3" rx="1.5" fill="#E6E4E0"/>
+          <rect x="28" y="62" width="24" height="3" rx="1.5" fill="#F0EEEA"/>
+          <circle cx="60" cy="16" r="3" fill="#C4A484" opacity="0.3"/>
+        </svg>
+      </div>
+      <p class="empty-state-text">Masukkan topik di atas untuk mulai membuat presentasi</p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         H. ERROR STATE
+         ═══════════════════════════════════════════════════════════════════ -->
+    <section id="errorContainer" class="error-container hidden">
+      <div class="error-icon">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="20" stroke="#DC2626" stroke-width="1.5" fill="none"/>
+          <line x1="24" y1="14" x2="24" y2="28" stroke="#DC2626" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="24" cy="33" r="1.5" fill="#DC2626"/>
+        </svg>
+      </div>
+      <p id="errorMessage" class="error-message">Terjadi kesalahan.</p>
+      <button id="retryBtn" class="btn-primary">Coba Lagi</button>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         D. SLIDE CONTAINER + E. NAVIGATION
+         ═══════════════════════════════════════════════════════════════════ -->
+    <section id="presentationWrapper" class="presentation-wrapper hidden">
+      <div id="slideContainer" class="presentation-container">
+        <!-- Slides rendered here by JS -->
+      </div>
+
+      <nav class="nav-container">
+        <button id="prevBtn" class="btn-nav" disabled>← Slide Sebelumnya</button>
+        <div id="dotsContainer" class="dots-container">
+          <!-- Dots rendered by JS -->
+        </div>
+        <span id="slideCounter" class="slide-counter">1 / 5</span>
+        <button id="nextBtn" class="btn-nav" disabled>Slide Selanjutnya →</button>
+      </nav>
+    </section>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       I. FOOTER
+       ═══════════════════════════════════════════════════════════════════ -->
+  <footer class="app-footer">
+    Dibuat dengan AI &mdash; PresentAI 2024
+  </footer>
+
+  <!-- Scripts (order matters: helpers & api first, then renderer, then app) -->
+  <script src="js/uiHelpers.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/slideRenderer.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
